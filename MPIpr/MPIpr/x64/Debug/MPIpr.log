@@ -1,0 +1,6 @@
+﻿  Fact16.cpp
+  MPIpr.cpp
+C:\Users\dima\source\repos\MPIpr\MPIpr\MPIpr.cpp(25,38): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Process.cpp
+  Создание кода...
+  MPIpr.vcxproj -> C:\Users\dima\source\repos\MPIpr\x64\Debug\MPIpr.exe
