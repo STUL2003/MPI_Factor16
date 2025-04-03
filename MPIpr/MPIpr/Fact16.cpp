@@ -1,4 +1,4 @@
-#include "Fact16.h"
+﻿#include "Fact16.h"
 #include "Process.h"
 #include <iostream>
 #include "mpi.h"
@@ -9,7 +9,6 @@ Fact16::Fact16() {
 
 void Fact16::processing(Process* process) {
     process->send();
-    MPI_Barrier(MPI_COMM_WORLD);
     process->recv();
 }
 
@@ -31,13 +30,31 @@ void Fact16::calc() {
         break;
     }
 
-    //1-�� ���
+    //1-2ой шаг
     if (process) {
         processing(process);
         if (rank % 2 == 0) process->setValue(process->getValue() * (rank * 2 + 3));
         else process->setValue(process->getValue() * process->getRecVal());
 
     }
+
+    // 2-3-й шаг
+    if (process) {
+        processing(process);
+        if (rank == 0 || rank == 4) process->setValue(process->getRecVal() * (2 * rank + 5));
+        else if (rank == 1 || rank == 5) process->setValue(process->getRecVal() * process->getRec2bVal());
+        else process->setValue(process->getValue() * process->getRecVal());
+    }
+    
+    //3-4й шаг
+    if (process) {
+        processing(process);
+        if (rank == 0) process->setValue(process->getValue() * 9);
+        else if (rank == 1 || rank == 2) process->setValue(process->getValue() * process->getRec2bVal());
+        else if (rank == 3) process->setValue(process->getRecVal() * process->getRec2bVal());
+        else process->setValue(process->getRecVal() * process->getValue());
+    }
+    
 
     if (process) {
         std::cout << "proc " << rank << " res: " << process->getValue() << std::endl;

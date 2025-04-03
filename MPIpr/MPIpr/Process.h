@@ -6,20 +6,22 @@
 class Process {
 private:
     int rank; //ранг процесса
-    int value; // значение
-    int recVal; // временное хранилизе для полученого значения от прошлого процесса
+    long long value; // значение
+    long long recVal; // временное хранилизе для полученого значения от прошлого процесса
     int step; // щаг
+    long long rec2bVal;
 
 public:
-    Process(int rank, int value);
+    Process(int rank, long long value);
     void send();
     void recv();
 
     // методы для доступа к данным
-    int getValue() const;
-    void setValue(int newValue);
-    void setRecVal(int newRecVal);
-    int getRecVal() const;
+    long long getValue() const;
+    void setValue(long long newValue);
+    void setRecVal(long long newRecVal);
+    long long getRecVal() const;
+    long long getRec2bVal() const;
 };
 
 #endif
